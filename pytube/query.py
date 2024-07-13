@@ -261,7 +261,7 @@ class StreamQuery(Sequence):
 
         """
         return self.filter(
-            progressive=True, subtype="mp4", resolution=resolution
+            progressive=False, subtype="mp4", resolution=resolution
         ).first()
 
     def get_lowest_resolution(self) -> Optional[Stream]:
@@ -274,7 +274,7 @@ class StreamQuery(Sequence):
 
         """
         return (
-            self.filter(progressive=True, subtype="mp4")
+            self.filter(progressive=False, subtype="mp4")
             .order_by("resolution")
             .first()
         )
@@ -288,7 +288,7 @@ class StreamQuery(Sequence):
             not found.
 
         """
-        return self.filter(progressive=True).order_by("resolution").last()
+        return self.filter(progressive=False).order_by("resolution").last()
 
     def get_audio_only(self, subtype: str = "mp4") -> Optional[Stream]:
         """Get highest bitrate audio stream for given codec (defaults to mp4)
